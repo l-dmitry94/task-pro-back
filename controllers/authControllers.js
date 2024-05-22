@@ -24,7 +24,8 @@ const signup = async (req, res) => {
         token,
     });
 
-    const payload = { email: newUser.email, id: newUser._id };
+    const payload = { id: newUser._id };
+    
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "12h" });
 
     await authServices.updateUser({ _id: newUser._id }, { token });
