@@ -18,17 +18,16 @@ const signup = async (req, res) => {
 
     const hashPassword = await bcrypt.hash(password, 10);
 
-    const payload = {
-        email,
-    };
-
-    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "12h" });
-
     const newUser = await authServices.signup({
         ...req.body,
         password: hashPassword,
         token,
     });
+
+    const payload = { email: newUser.email, id: newUser._id };
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "12h" });
+
+    await authServices.updateUser({ _id: newUser._id }, { token });
 
     res.status(201).json({
         token,
