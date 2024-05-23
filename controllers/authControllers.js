@@ -21,7 +21,6 @@ const signup = async (req, res) => {
     const newUser = await authServices.signup({
         ...req.body,
         password: hashPassword,
-        token,
     });
 
     const payload = { id: newUser._id };
