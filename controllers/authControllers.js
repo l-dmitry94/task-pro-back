@@ -25,7 +25,7 @@ const signup = async (req, res) => {
 
     const payload = { id: newUser._id };
     
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "12h" });
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "12h" });
 
     await authServices.updateUser({ _id: newUser._id }, { token });
 
