@@ -59,7 +59,7 @@ const signin = async (req, res) => {
         id,
     };
 
-    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1m" });
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "12h" });
 
     await authServices.updateUser({ _id: id }, { token });
 
